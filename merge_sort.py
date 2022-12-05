@@ -1,10 +1,14 @@
+import time
+
 class MergeSort:
 
     def __init__(self, array):
         self.array = array
 
     def sort(self):
+        start_time = time.time()
         self.__sort(self.array)
+        self.final_time = time.time() - start_time
 
     def __sort(self, arr):
         if len(arr) > 1:
