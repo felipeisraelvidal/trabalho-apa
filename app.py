@@ -1,12 +1,17 @@
 import random
 from merge_sort import MergeSort
 from heap_sort import HeapSort
+from quick_sort import QuickSortMedio, QuickSortAchaPivo
 from utils.sort_mode import SortMode
+from utils.color import color
 
 def generate_instance(n):
     return [i + 1 for i in range(n)]
 
 def __sort(mode, arr, f, len_little_disordered, len_very_disorderly):
+    # print(f'{color.BOLD}{str(mode)} ({len(arr)}){color.END}')
+    print(color.BOLD + u'\u2794' + f' {str(mode)} ({len(arr)})' + color.END)
+
     f.write(f'\n====== {str(mode)} ======\n')
 
     f.write('=> Pouco desordenada:\n')
@@ -20,14 +25,20 @@ def __sort(mode, arr, f, len_little_disordered, len_very_disorderly):
     if mode == SortMode.MERGESORT:
         sort = MergeSort(little_disordered_arr)
         sort.sort()
-    elif mode == SortMode.QUICKSORT:
-        return
+    elif mode == SortMode.QUICKSORT_MEDIO:
+        sort = QuickSortMedio(little_disordered_arr)
+        sort.sort()
+    elif mode == SortMode.QUICKSORT_ACHA_PIVO:
+        sort = QuickSortAchaPivo(little_disordered_arr)
+        sort.sort()
     elif mode == SortMode.HEAPSORT:
         sort = HeapSort(little_disordered_arr)
         sort.sort()
 
-    f.write(f'\tNumber of swaps: {len_little_disordered}\n')
+    f.write(f'\tNumber of swaps: {int(len_little_disordered)}\n')
     f.write(f'\tTime: {sort.final_time}s\n')
+
+    print('   ' + color.GREEN + u'\u2713' + ' Pouco desordenada' + color.END)
 
     ######################################
 
@@ -42,14 +53,20 @@ def __sort(mode, arr, f, len_little_disordered, len_very_disorderly):
     if mode == SortMode.MERGESORT:
         sort = MergeSort(very_disorderly_arr)
         sort.sort()
-    elif mode == SortMode.QUICKSORT:
-        return
+    elif mode == SortMode.QUICKSORT_MEDIO:
+        sort = QuickSortMedio(very_disorderly_arr)
+        sort.sort()
+    elif mode == SortMode.QUICKSORT_ACHA_PIVO:
+        sort = QuickSortAchaPivo(very_disorderly_arr)
+        sort.sort()
     elif mode == SortMode.HEAPSORT:
         sort = HeapSort(very_disorderly_arr)
         sort.sort()
 
-    f.write(f'\tNumber of swaps: {len_very_disorderly}\n')
+    f.write(f'\tNumber of swaps: {int(len_very_disorderly)}\n')
     f.write(f'\tTime: {sort.final_time}s\n')
+
+    print('   ' + color.GREEN + u'\u2713' + ' Muito desordenada' + color.END)
 
     
 def main():
@@ -66,24 +83,11 @@ def main():
         len_very_disorderly = len(arr) * 0.5
 
         __sort(SortMode.MERGESORT, arr.copy(), f, len_little_disordered, len_very_disorderly)
-        __sort(SortMode.QUICKSORT, arr.copy(), f, len_little_disordered, len_very_disorderly)
+        __sort(SortMode.QUICKSORT_MEDIO, arr.copy(), f, len_little_disordered, len_very_disorderly)
+        __sort(SortMode.QUICKSORT_ACHA_PIVO, arr.copy(), f, len_little_disordered, len_very_disorderly)
         __sort(SortMode.HEAPSORT, arr.copy(), f, len_little_disordered, len_very_disorderly)
         
         f.close()
-
-    # arr = generate_instance(10)
-
-    # # Pouco desordenada
-    number_of_swaps = len(arr) * 0.1
-    for _ in range(int(number_of_swaps)):
-        index_a = random.randint(0, len(arr) - 1)
-        index_b = random.randint(0, len(arr) - 1)
-        arr[index_a], arr[index_b] = arr[index_b], arr[index_a]
-
-    # print(arr)
-
-    # # Muito desordenada
-    # number_of_swaps = len(arr) * 0.5  
 
 if __name__ == "__main__":
     main()
