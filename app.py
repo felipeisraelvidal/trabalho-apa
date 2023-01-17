@@ -9,7 +9,6 @@ def generate_instance(n):
     return [i + 1 for i in range(n)]
 
 def __sort(mode, arr, f, len_little_disordered, len_very_disorderly):
-    # print(f'{color.BOLD}{str(mode)} ({len(arr)}){color.END}')
     print(color.BOLD + u'\u2794' + f' {str(mode)} ({len(arr)})' + color.END)
 
     f.write(f'\n====== {str(mode)} ======\n')

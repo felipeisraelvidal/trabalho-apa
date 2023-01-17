@@ -60,26 +60,26 @@ class QuickSortAchaPivo:
         self.array = array
     
     def sort(self):
-        # print(self.array)
+        print(self.array)
         start_time = time.time()
         self.__sort(self.array, 0, len(self.array) - 1)
         self.final_time = time.time() - start_time
-        # print(self.array)
+        print(self.array)
 
-    def __acha_pivot(self, lista, esq, dir):
-        pivot = 0
+    def _acha_pivo(self, arr, esq, dir):
         pos = esq + 1
+        pivo = 0
 
         while pos <= dir:
-            if lista[pos] >= lista[pos - 1]:
-                pos=pos+1
+            if arr[pos] >= arr[pos - 1]:
+                pos = pos + 1
             else:
-                pivot = pos
-            break
+                pivo = pos
+                break
         
-        return pivot
+        return pivo
 
-    def __particao_acha_pivot(self, arr, esq, dir):
+    def particao_acha_pivo(self, arr, esq, dir):
         pivo = arr[esq]
         i = esq
         j = dir
@@ -101,13 +101,14 @@ class QuickSortAchaPivo:
 
         return j
 
-    def __sort(self, arr, esq, dir): 
+    def __sort(self, arr, esq, dir):
         if esq >= dir:
             return
 
-        pivo = self.__acha_pivot(arr, esq, dir)
-        if (pivo != 0):
+        pivo = self._acha_pivo(arr, esq, dir)
+
+        if(pivo != 0):
             arr[pivo], arr[esq] = arr[esq], arr[pivo]
-            p = self.__particao_acha_pivot(arr, esq, dir)
+            p = self.particao_acha_pivo(arr, esq, dir)
             self.__sort(arr, esq, p - 1)
             self.__sort(arr, p + 1, dir)
